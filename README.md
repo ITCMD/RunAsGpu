@@ -14,3 +14,5 @@ Allows you to run programs on your secondary GPU [inspired by Kernel Kue on the 
 ![Setup](https://i.imgur.com/M14r6yW.png)
 ![Setup2](https://i.imgur.com/ywxtSTN.png)
 ![Prompt](https://i.imgur.com/y6U0AvM.png)
+
+Note: devcon.exe was obtained from an official microsoft release found [here](https://superuser.com/questions/1002950/quick-method-to-install-devcon-exe)
