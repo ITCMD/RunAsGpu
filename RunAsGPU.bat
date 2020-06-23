@@ -11,7 +11,7 @@ if not exist "%cd%\devcon.exe" (
 	) ELSE (
 		echo No Devcon File Was found.
 		echo Install it or download it at
-		echo https://drive.google.com/file/d/1y3xF30E-vRHeFX5U5DpdZ312P0cGDj2-/view?usp=sharing
+		echo https://github.com/ITCMD/RunAsGpu/raw/master/devcon.exe
 	)
 )
 :: COMMENT] Checks if card is already identified.
