@@ -9,7 +9,7 @@ Allows you to run programs on your secondary GPU
 5. It will prompt for admin access and launch it!
 
 ### WARNING: Your screen WILL go black twice when launching the program.
-### WARNING: Do not use this while playing a game!
+### WARNING: Do not use this while a game is running!
 
 ![Setup](https://i.imgur.com/M14r6yW.png)
 ![Setup2](https://i.imgur.com/ywxtSTN.png)
