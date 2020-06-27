@@ -10,7 +10,7 @@ AMD Support is experimental, please report any bugs!
 4. Choose a program to launch on your secondary GPU
 5. It will prompt for admin access and launch it!
 
-### WARNING: Your screen WILL go black twice when launching the program.
+### WARNING: Your screen will go black twice when launching the program.
 ### WARNING: Do not use this while a game is running!
 
 ![Setup](https://i.imgur.com/M14r6yW.png)
