@@ -11,7 +11,7 @@ if not exist "%cd%\devcon.exe" (
 	) ELSE (
 		echo No Devcon File Was found.
 		echo Install it or download it at
-		echo https://github.com/ITCMD/RunAsGpu/raw/master/devcon.exe
+		echo https://drive.google.com/file/d/1y3xF30E-vRHeFX5U5DpdZ312P0cGDj2-/view?usp=sharing
 	)
 )
 :: COMMENT] Checks if card is already identified.
@@ -72,9 +72,9 @@ if "%~2"=="" (
 	powershell start -verb runas -FilePath '%0' am_admin '%dragndrop%'
 ) ELSE (
 	if "%~3"=="" (
-		powershell start -verb runas '%0' am_admin %dragndrop% %2
+		powershell start -verb runas /user:administrator '%0' am_admin %dragndrop% %2
 	) ELSE (
-		powershell start -verb runas '%0' am_admin %dragndrop% %2 %3
+		powershell start -verb runas /user:administrator '%0' am_admin %dragndrop% %2 %3
 	)
 )
 exit /b
@@ -87,14 +87,15 @@ for %%A in ("%ccd%") do %%~dA >nul
 cd %ccd%
 set /p params=<"%temp%\runascdparam"
 set /p card=<card.ini
-echo [0mDisabling primary card . . .[90m
-call devcon.exe disable "%card%"
-echo | set /p="[0mLaunching program . . .[90m."
-timeout /t 4 /nobreak >nul 2>nul
+set >log.txt
+echo [0mDisabling primary card. . .[90m
+call "%ccd%\devcon.exe" disable "%card%"
+echo [0mLaunching program . . .[90m.
+timeout /t 2 /nobreak >nul 2>nul
 start "" %params%
-timeout /t 4 /nobreak
+timeout /t 4 /nobreak >nul 2>nul
 echo [0mEnablind primary card . . .[90m
-call devcon.exe enable "%card%"
+call "%ccd%\devcon.exe" enable "%card%"
 echo [32mComplete.[0m
 echo Press any key to exit . . .
 pause >nul
