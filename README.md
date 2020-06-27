@@ -1,6 +1,8 @@
 # RunAsGPU
 Allows you to run programs on your secondary GPU [inspired by Kernel Kue on the LTT forums](https://linustechtips.com/main/topic/940423-setting-2nd-gpu-as-power-saving-in-graphics-settings-on-windows-10/)
 
+AMD Support is experimental.
+
 ## To Use:
 1. Download runasgpu.bat and devcon.exe
 2. Run it
