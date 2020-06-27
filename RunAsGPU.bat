@@ -19,9 +19,32 @@ if exist card.ini (
 	set /p card=<card.ini
 	goto launch
 )
-:: COMMENT] Identifies cards
+:: COMMENT] Identifies AMD or NVIDIA
 setlocal EnableDelayedExpansion
 set num=0
+echo Searching for Graphics Cards . . .
+devcon.exe find PCI\* ^| find /i "NVIDIA" >nul 2>nul
+if %errorlevel%==0 goto NVDsearch
+devcon.exe find PCI\* ^| find /i "AMD" >nul 2>nul
+if %errorlevel%==0 goto AMDsearch
+echo No Graphics Cards Found.
+echo Manual Setup in card.ini.
+pause
+exit /b
+:: COMMENT] Lists matched cards
+:AMDSEARCH
+echo AMD Cards detected.
+for /f "tokens=1,2,3* delims=:" %%A in ('devcon.exe find PCI\* ^| find /i "AMD"') do (
+set /a num+=1
+set "card!num!name=%%~B"
+set "card!num!path=%%~A"
+)
+cls
+echo [32m Please Select Your [4mPRIMARY[0;32m Card[0m
+set num2=1
+goto loop
+:NVDSEARCH	
+echo NVIDIA Cards detected.
 for /f "tokens=1,2,3* delims=:" %%A in ('devcon.exe find PCI\* ^| find /i "NVIDIA"') do (
 set /a num+=1
 set "card!num!name=%%~B"
@@ -30,6 +53,7 @@ set "card!num!path=%%~A"
 cls
 echo [32m Please Select Your [4mPRIMARY[0;32m Card[0m
 set num2=1
+:: COMMENT] Displays Cards for choice
 :loop
 echo %num2%] !card%num2%name:~1!
 if "%num2%"=="%num%" goto endloop
@@ -41,10 +65,13 @@ if "!card%cardnum%name!"=="" (
 	echo Invalid Selection.
 	goto endloop
 )
+:: COMMENT] Saves card identifier to card.ini
 for /f "tokens=1,2,3* delims=^&" %%A in ('echo "!card%cardnum%path!"') do (
+	set tempvar=%%~A^^^&%%~B*
 	echo %%~A^^^&%%~B*>card.ini
 )
-echo Primary card set to !card%cardnum%name:~1!. Programs will launch on other GPU.
+echo !card%num%name!>cardname.ini
+echo Primary card set to !card%cardnum%name:~1! [90m(%tempvar%)[0m. Programs will launch on other GPU.
 pause
 goto launch
 :launch
@@ -87,8 +114,9 @@ for %%A in ("%ccd%") do %%~dA >nul
 cd %ccd%
 set /p params=<"%temp%\runascdparam"
 set /p card=<card.ini
+set /p name=<cardname.ini
 set >log.txt
-echo [0mDisabling primary card. . .[90m
+echo [0mDisabling primary card [30m%name%[0m. . .[90m
 call "%ccd%\devcon.exe" disable "%card%"
 echo [0mLaunching program . . .[90m.
 timeout /t 2 /nobreak >nul 2>nul
