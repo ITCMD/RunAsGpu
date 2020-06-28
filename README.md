@@ -10,6 +10,11 @@ AMD Support is experimental, please report any bugs!
 4. Choose a program to launch on your secondary GPU
 5. It will prompt for admin access and launch it!
 
+Command line options:
+`-cd directory`
+Use the `-cd` option before the program you wish to launch to launch it in that directory.
+Example: `call RunAsGPU.bat -cd "C:\Windows" "C:\program files\google\chrome\chrome.exe" -user 1`
+
 ### WARNING: Your screen will go black twice when launching the program.
 ### WARNING: Do not use this while a game is running!
 
