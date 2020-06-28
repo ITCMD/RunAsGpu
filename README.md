@@ -1,5 +1,5 @@
 # RunAsGPU
-Allows you to run programs on your secondary GPU [inspired by Kernel Kue on the LTT forums](https://linustechtips.com/main/topic/940423-setting-2nd-gpu-as-power-saving-in-graphics-settings-on-windows-10/).
+Allows you to run programs on your secondary GPU [inspired by Kernel Kue on the LTT forums](https://linustechtips.com/main/topic/940423-setting-2nd-gpu-as-power-saving-in-graphics-settings-on-windows-10/) in order to save resources on your primary GPU. Now you finally have a use for your old GTX 1050!
 
 Read more on the LTT Forums: https://linustechtips.com/main/topic/1215225-run-rtx-voice-or-any-program-on-second-graphics-card/
 
