@@ -1,5 +1,11 @@
 @echo off
 cls
+set this=%0
+if "%~1"=="-cd" (
+	set ccd2=%~2
+	shift
+	shift
+)
 if "%~1"=="am_admin" (
 	goto as_admin
 )
@@ -76,7 +82,7 @@ pause
 goto launch
 :launch
 if not "%~1"=="" (
-	set dragndrop=%~1
+	set dragndrop=%1
 	goto runas
 )
 echo [32mDrag And Drop program to run here:[0m
@@ -92,36 +98,33 @@ if not exist %dragndrop% (
 ::set dragndrop=%dragndrop:(=`(%
 ::set dragndrop=%dragndrop:)=`^)%
 cd>"%temp%\runascd.txt"
+echo %ccd2%>"%temp%\runascardcd"
 echo %dragndrop% %2 %3>"%temp%\runascdparam"
-powershell start -verb runas -FilePath '%0' am_admin
+set > log.txt
+echo %this%
+powershell start -verb runas -FilePath '%this%' am_admin
 exit /b
-if "%~2"=="" (
-	powershell start -verb runas -FilePath '%0' am_admin '%dragndrop%'
-) ELSE (
-	if "%~3"=="" (
-		powershell start -verb runas /user:administrator '%0' am_admin %dragndrop% %2
-	) ELSE (
-		powershell start -verb runas /user:administrator '%0' am_admin %dragndrop% %2 %3
-	)
-)
-exit /b
-rem powershell start -verb runas '%0' am_admin %1
 
 
 :as_admin
+title Run As GPU ^| Launching Program . . .
 set /p ccd=<"%temp%\runascd.txt"
-for %%A in ("%ccd%") do %%~dA >nul
-cd %ccd%
+if not exist "%temp%\runascardcd" goto noccd2
+set /p ccd2=<"%temp%\runascardcd"
+for %%A in ("%ccd2%") do %%~dA >nul
+cd %ccd2%
+del /f /q "%temp%\runascardcd"
+:noccd2
+echo here
 set /p params=<"%temp%\runascdparam"
-set /p card=<card.ini
-set /p name=<cardname.ini
-set >log.txt
+set /p card=<"%ccd%\card.ini"
+set /p name=<"%ccd%\cardname.ini"
 echo [0mDisabling primary card [30m%name%[0m. . .[90m
 call "%ccd%\devcon.exe" disable "%card%"
 echo [0mLaunching program . . .[90m.
 timeout /t 2 /nobreak >nul 2>nul
 start "" %params%
-timeout /t 4 /nobreak >nul 2>nul
+pause
 echo [0mEnablind primary card . . .[90m
 call "%ccd%\devcon.exe" enable "%card%"
 echo [32mComplete.[0m
