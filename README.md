@@ -18,7 +18,7 @@ Use the `-cd` option before the program you wish to launch to launch it in that 
 Example: `call RunAsGPU.bat -cd "C:\Windows" "C:\program files\google\chrome\chrome.exe" -user 1`
 
 #### NOTICE: Your screen will go black twice when launching the program.
-#### WARNING: Do not use this while a game is running!
+#### WARNING: Do not launch a program with this while a game is running!
 
 ![Setup](https://i.imgur.com/M14r6yW.png)
 ![Setup2](https://i.imgur.com/ywxtSTN.png)
